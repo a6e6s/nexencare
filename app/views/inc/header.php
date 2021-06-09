@@ -33,16 +33,14 @@ For more information about the author , see <http://www.ahmedx.com/>.
     <meta property="og:url" content="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>">
     <meta property="og:title" content="<?php echo $data['settings']['site']->title; ?>">
     <meta property="og:description" content="<?php echo $data['settings']['seo']->meta_description; ?>">
-    <meta property="og:image" content="<?php echo MEDIAURL . '/';
-                                        echo isset($data['settings']['site']->image) ? $data['settings']['site']->image : $data['settings']['site']->logo; ?>">
+    <meta property="og:image" content="<?php echo URLROOT . '/templates/nexencare/images/logo.png';; ?>">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" ?>">
     <meta property="twitter:title" content="<?php echo $data['settings']['site']->title; ?>">
     <meta property="twitter:description" content="<?php echo $data['settings']['seo']->meta_description; ?>">
-    <meta property="twitter:image" content="<?php echo MEDIAURL . '/' ;
-                                        echo isset($data['settings']['site']->image) ? $data['settings']['site']->image : $data['settings']['site']->logo; ?>">
+    <meta property="twitter:image" content="<?php echo URLROOT . '/templates/nexencare/images/logo.png'; ?>">
 
     <?php echo $data['settings']['site']->header_code; ?>
     <link rel="shortcut icon" href="<?php echo URLROOT; ?>/templates/nexencare/images/favicon.ico" type="image/x-icon">
@@ -105,5 +103,28 @@ For more information about the author , see <http://www.ahmedx.com/>.
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+        <!-- main menu end -->
+        <section id="menu-bar">
+        <div class="container-lg bg-white rounded py-0 d-flex shadow">
+            <nav class="navbar navbar-expand-lg navbar-light py-2">
+                <button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler p-1">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="<?php echo URLROOT; ?>" class="navbar-brand font-weight-bold ml-auto pr-0">
+                    <img class="" src="<?php echo  URLROOT . '/templates/nexencare/images/logo.png' ; ?>" alt="<?php echo SITENAME; ?>" width="" />
+                </a>
+                <div id="navbarContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="<?php echo URLROOT; ?>" class="nav-link active"><i class="icofont-home icofont-lg"></i> <span class="d-sm-inline d-lg-none">الرئيسية</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo URLROOT; ?>/pages/subscription" class="nav-link active"> <span class="">التسجيل</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
     </section>

@@ -55,8 +55,8 @@ class Page extends Model
      */
     public function addMember($data)
     {
-        $this->db->query('INSERT INTO Members( first_name, nationality, gender, second_name, last_name, family_name, image, status, updated_at, created_at)'
-            . ' VALUES (:first_name, :nationality, :gender, :second_name, :last_name, :family_name, :image, :status, :updated_at, :created_at)');
+        $this->db->query('INSERT INTO Members( first_name, nationality, gender, second_name, last_name, family_name, birthdate, image, status, updated_at, created_at)'
+            . ' VALUES (:first_name, :nationality, :gender, :second_name, :last_name, :family_name, :birthdate, :image, :status, :updated_at, :created_at)');
         // binding values
         $this->db->bind(':first_name', $data['first_name']);
         $this->db->bind(':nationality', $data['nationality']);
@@ -64,6 +64,7 @@ class Page extends Model
         $this->db->bind(':second_name', $data['second_name']);
         $this->db->bind(':last_name', $data['last_name']);
         $this->db->bind(':family_name', $data['family_name']);
+        $this->db->bind(':birthdate', strtotime($data['birthdate']));
         $this->db->bind(':image', $data['image']);
         $this->db->bind(':status', 0);
         $this->db->bind(':created_at', time());

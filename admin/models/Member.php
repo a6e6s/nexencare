@@ -80,19 +80,20 @@ class Member extends ModelAdmin
 
     public function updateMember($data)
     {
-        $query = 'UPDATE members SET full_name = :full_name, identity = :identity, status = :status, phone = :phone, nationality = :nationality';
+        $query = 'UPDATE members SET first_name = :first_name, second_name = :second_name, last_name = :last_name, family_name = :family_name, status = :status, nationality = :nationality';
         if (!empty($data['image'])) $query .= ', image = :image';
-        $query .= ', gender = :gender, email = :email, updated_at = :updated_at WHERE member_id = :member_id';
+        $query .= ', gender = :gender, birthdate = :birthdate, updated_at = :updated_at WHERE member_id = :member_id';
         $this->db->query($query);
         // binding values
         $this->db->bind(':member_id', $data['member_id']);
-        $this->db->bind(':identity', $data['identity']);
-        if (!empty($data['image'])) $this->db->bind(':image', $data['image']);
-        $this->db->bind(':full_name', $data['full_name']);
-        $this->db->bind(':phone', $data['phone']);
+        $this->db->bind(':first_name', $data['first_name']);
+        $this->db->bind(':second_name', $data['second_name']);
+        $this->db->bind(':last_name', $data['last_name']);
+        $this->db->bind(':family_name', $data['family_name']);
         $this->db->bind(':nationality', $data['nationality']);
         $this->db->bind(':gender', $data['gender']);
-        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':birthdate', strtotime($data['birthdate']));
+        if (!empty($data['image'])) $this->db->bind(':image', $data['image']);
         $this->db->bind(':status', $data['status']);
         $this->db->bind(':updated_at', time());
         // excute

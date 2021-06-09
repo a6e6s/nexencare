@@ -18,20 +18,20 @@ $data['header'] = '';
 header("Content-Type: text/html; charset=utf-8");
 
 require ADMINROOT . '/views/inc/header.php';
-$volunteer = (object) $data['volunteer'];
+$member = (object) $data['member'];
 ?>
 
 <!-- page content -->
 
 <div class="right_col" role="main">
     <div class="clearfix"></div>
-    <?php flash('volunteer_msg'); ?>
+    <?php flash('member_msg'); ?>
     <div class="page-title">
         <div class="title_right">
-            <h3><?php echo $data['page_title']; ?> <small>عرض متطوع </small></h3>
+            <h3><?php echo $data['page_title']; ?> <small>عرض بيانات مسجل </small></h3>
         </div>
         <div class="title_left">
-            <a href="<?php echo ADMINURL; ?>/volunteers" class="btn btn-success pull-left">عودة <i class="fa fa-reply"></i></a>
+            <a href="<?php echo ADMINURL; ?>/members" class="btn btn-success pull-left">عودة <i class="fa fa-reply"></i></a>
         </div>
     </div>
 
@@ -41,47 +41,40 @@ $volunteer = (object) $data['volunteer'];
         <div class="col-xs-12 col-xs-12">
             <div class="form-group">
                 <h3 class="prod_title">
-                    <?php echo $volunteer->full_name; ?>
+                    <?php echo "$member->first_name $member->second_name $member->last_name $member->family_name"; ?>
                 </h3>
             </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">الهوية : </label>
-                <?php echo $volunteer->identity; ?>
-                <br>
-                <a href="<?php echo URLROOT . "/media/files/volunteers/" . $volunteer->image; ?>" target="blank">
-                    <img src="<?php echo URLROOT . "/media/files/thumbs/" . $volunteer->image; ?>">
-                </a>
+            <div class="col-xs-6">
+                <img src="<?php echo URLROOT . "/media/files/thumbs/" . $member->image; ?>">
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label class="control-label">الجنسية : </label>
+                    <?php echo $member->nationality; ?>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">الجنس : </label>
+                    <?php echo $member->gender; ?>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">تاريخ الميلاد : </label>
+                    <?php echo date("D d/M/Y", $member->birthdate); ?>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">الحالة : </label>
+                    <p><?php echo $member->status ? 'مقروءة' : 'غير مقروءة'; ?></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">اخر تحديث : </label>
+                    <p><?php echo $member->updated_at ? date('d/ M/ Y', $member->updated_at) : 'لا'; ?></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">وقت الإنشاء : </label>
+                    <p><?php echo $member->created_at ? date('d/ M/ Y', $member->created_at) : 'لا'; ?></p>
+                </div>
             </div>
             <div class="form-group col-xs-12">
-                <label class="control-label">الجنسية : </label>
-                <?php echo $volunteer->nationality; ?>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">الجنس : </label>
-                <?php echo $volunteer->gender; ?>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">البريد الالكتروني : </label>
-                <?php echo $volunteer->email; ?>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">الهاتف : </label>
-                <?php echo $volunteer->phone; ?>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">الحالة : </label>
-                <p><?php echo $volunteer->status ? 'مقروءة' : 'غير مقروءة'; ?></p>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">اخر تحديث : </label>
-                <p><?php echo $volunteer->modified_date ? date('d/ M/ Y', $volunteer->modified_date) : 'لا'; ?></p>
-            </div>
-            <div class="form-group col-xs-12">
-                <label class="control-label">وقت الإنشاء : </label>
-                <p><?php echo $volunteer->create_date ? date('d/ M/ Y', $volunteer->create_date) : 'لا'; ?></p>
-            </div>
-            <div class="form-group col-xs-12">
-                <a class="btn btn-info" href="<?php echo ADMINURL . '/volunteers/edit/' . $volunteer->volunteer_id; ?>">تعديل</a>
+                <a class="btn btn-info" href="<?php echo ADMINURL . '/members/edit/' . $member->member_id; ?>">تعديل</a>
             </div>
 
 

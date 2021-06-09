@@ -29,7 +29,6 @@ require ADMINROOT . '/views/inc/header.php';
             <h3><?php echo $data['title']; ?> <small>عرض كافة <?php echo $data['title']; ?> </small></h3>
         </div>
         <div class="title_left">
-            <a href="<?php echo ADMINURL; ?>/members/add" class="btn btn-success pull-left">انشاء جديد <i class="fa fa-plus"></i></a>
             <a href="<?php echo ADMINURL; ?>/settings/edit/10#member" class="btn btn-primary pull-left">الاعدادات <i class="fa fa-plus"></i></a>
         </div>
     </div>
@@ -44,7 +43,7 @@ require ADMINROOT . '/views/inc/header.php';
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class=" form-group-sm">
-                            <th></th>
+                                <th></th>
                                 <th width="50px"><input type="submit" name="search[submit]" value="بحث" class="btn btn-sm btn-primary search-query" /></th>
                                 <th class=""><input type="search" class="form-control" placeholder="بحث الاسم الاول" name="search[first_name]" value=""></th>
                                 <th class=""><input type="search" class="form-control" placeholder="بحث الاسم الاب" name="search[second_name]" value=""></th>
@@ -52,7 +51,10 @@ require ADMINROOT . '/views/inc/header.php';
                                 <th><input type="search" class="form-control" placeholder="بحث الاسم العائلة" name="search[family_name]" value=""></th>
                                 <th class=""><input type="search" class="form-control" placeholder="بحث بالجنس" name="search[gender]" value=""></th>
                                 <th class=""><input type="search" class="form-control" placeholder="بحث بالجنسية" name="search[nationality]" value=""></th>
-                                <th class="" colspan="2"></th>
+                                <th class="form-inline" colspan="3">
+                                    من<input type="date" class="form-control" name="search[from]" value="">
+                                   الي <input type="date" class="form-control" name="search[to]" value="">
+                                </th>
                                 <th width="150px">
                                     <select class="form-control" name="search[status]">
                                         <option value=""></option>
@@ -72,6 +74,7 @@ require ADMINROOT . '/views/inc/header.php';
                                 <th class="column-title">اسم العائلة </th>
                                 <th class="column-title"> الجنس </th>
                                 <th class="column-title"> الجنسية </th>
+                                <th class="column-title"> تاريخ الميلاد </th>
                                 <th class="column-title">تاريخ الانشاء </th>
                                 <th class="column-title">آخر تحديث </th>
                                 <th class="column-title no-link last"><span class="nobr">اجراءات</span>
@@ -96,11 +99,12 @@ require ADMINROOT . '/views/inc/header.php';
                                         </a>
                                     </td>
                                     <td class=""><?php echo $member->first_name; ?></td>
-                                    <td class=""><?php echo $member->family_name; ?></td>
-                                    <td class=""><?php echo $member->last_name; ?></td>
                                     <td class=""><?php echo $member->second_name; ?></td>
+                                    <td class=""><?php echo $member->last_name; ?></td>
+                                    <td class=""><?php echo $member->family_name; ?></td>
                                     <td class=""><?php echo $member->gender; ?></td>
                                     <td class=""><?php echo $member->nationality; ?></td>
+                                    <td class="ltr"><?php echo date('Y/ m/ d ', $member->birthdate); ?></td>
                                     <td class="ltr"><?php echo date('Y/ m/ d | H:i a', $member->created_at); ?></td>
                                     <td class="ltr"><?php echo date('Y/ m/ d | H:i a', $member->updated_at); ?></td>
                                     <td class="form-group">

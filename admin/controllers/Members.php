@@ -70,6 +70,13 @@ class Members extends ControllerAdmin
         $searches = $this->memberModel->searchHandling(['first_name', 'second_name', 'last_name', 'family_name', 'nationality', 'gender', 'status'], $current);
         $cond .= $searches['cond'];
         $bind = $searches['bind'];
+
+        if(@exist($_POST['search']['from'])){
+            $cond .= " AND birthdate >= ".strtotime($_POST['search']['from']);
+        }
+        if(@exist($_POST['search']['to'])){
+            $cond .= " AND birthdate <= ".strtotime($_POST['search']['to']);
+        }
         // get all records count after search and filtration
         $recordsCount = $this->memberModel->allMembersCount($cond, $bind);
         // make sure its integer value and its usable
@@ -99,108 +106,6 @@ class Members extends ControllerAdmin
     }
 
     /**
-     * adding new member
-     */
-    public function add()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // sanitize POST array
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $data = [
-                'page_title' => 'المسجلون',
-                'identity' => trim($_POST['identity']),
-                'image' => '',
-                'full_name' => trim($_POST['full_name']),
-                'phone' => trim($_POST['phone']),
-                'nationality' => trim($_POST['nationality']),
-                'gender' => trim($_POST['gender']),
-                'email' => trim($_POST['email']),
-                'status' => '',
-                'status_error' => '',
-                'email_error' => '',
-                'gender_error' => '',
-                'nationality_error' => '',
-                'identity_error' => '',
-                'phone_error' => '',
-                'full_name_error' => '',
-                'image_error' => '',
-            ];
-            // validate identity
-            !(empty($data['identity'])) ?: $data['identity_error'] = 'هذا الحقل مطلوب';
-            // validate gender
-            !(empty($data['gender'])) ?: $data['gender_error'] = 'هذا الحقل مطلوب';
-            // validate email
-            !(empty($data['email'])) ?: $data['email_error'] = 'هذا الحقل مطلوب';
-            // validate phone
-            !(empty($data['phone'])) ?: $data['phone_error'] = 'هذا الحقل مطلوب';
-            // validate nationality
-            !(empty($data['nationality'])) ?: $data['nationality_error'] = 'هذا الحقل مطلوب';
-            // validate full_name
-            !(empty($data['full_name'])) ?: $data['full_name_error'] = 'هذا الحقل مطلوب';
-            // validate status
-            if (isset($_POST['status'])) {
-                $data['status'] = trim($_POST['status']);
-            }
-            if ($data['status'] == '') {
-                $data['status_error'] = 'من فضلك اختار حالة النشر';
-            }
-            // validate image
-            if ($_FILES['image']['error'] != 4) {
-                $image = uploadImage('image', ADMINROOT . '/../media/files/members/', 5000000, false);
-                if (empty($image['error'])) {
-                    $data['image'] = $image['filename'];
-                } else {
-                    if (!isset($image['error']['nofile'])) {
-                        $data['image_error'] = implode(',', $image['error']);
-                    }
-                }
-            } else {
-                $data['image_error'] = "من فضلك قم برفع ملف الهوية";
-            }
-            //make sure there is no errors
-            if (
-                empty($data['status_error']) && empty($data['full_name_error']) && empty($data['gender_error']) && empty($data['email_error'])
-                && empty($data['phone_error']) && empty($data['image_error'])
-            ) {
-                //validated
-                if ($this->memberModel->addMember($data)) {
-                    flash('member_msg', 'تم الحفظ بنجاح');
-                    redirect('members');
-                } else {
-                    flash('member_msg', 'هناك خطأ مه حاول مرة اخري', 'alert alert-danger');
-                }
-            } else {
-                //load the view with error
-                $this->view('members/add', $data);
-            }
-        } else {
-            $data = [
-                'page_title' => 'المسجلون',
-                'identity' => '',
-                'image' => '',
-                'nationality' => '',
-                'gender' => '',
-                'email' => '',
-                'district' => '',
-                'message' => '',
-                'full_name' => '',
-                'phone' => '',
-                'city' => '',
-                'status' => 0,
-                'status_error' => '',
-                'email_error' => '',
-                'gender_error' => '',
-                'nationality_error' => '',
-                'phone_error' => '',
-                'identity_error' => '',
-                'full_name_error' => '',
-                'image_error' => '',
-            ];
-        }
-        //loading the add member view
-        $this->view('members/add', $data);
-    }
-    /**
      * update member
      * @param integer $id
      */
@@ -213,43 +118,42 @@ class Members extends ControllerAdmin
             $data = [
                 'page_title' => 'المسجلون',
                 'member_id' => $id,
-                'identity' => trim($_POST['identity']),
-                'image' => '',
-                'full_name' => trim($_POST['full_name']),
-                'phone' => trim($_POST['phone']),
+                'first_name' => trim($_POST['first_name']),
+                'second_name' => trim($_POST['second_name']),
+                'last_name' => trim($_POST['last_name']),
+                'family_name' => trim($_POST['family_name']),
+                'birthdate' => trim($_POST['birthdate']),
                 'nationality' => trim($_POST['nationality']),
-                'gender' => trim($_POST['gender']),
-                'email' => trim($_POST['email']),
-                'status' => '',
+                'gender' => @trim($_POST['gender']),
+                'image' => '',
+                'status' => trim($_POST['status']),
                 'status_error' => '',
-                'email_error' => '',
-                'identity_error' => '',
                 'gender_error' => '',
                 'nationality_error' => '',
-                'phone_error' => '',
-                'full_name_error' => '',
+                'birthdate_error' => '',
+                'first_name_error' => '',
+                'second_name_error' => '',
+                'last_name_error' => '',
+                'family_name_error' => '',
                 'image_error' => '',
             ];
+            // validate first_name
+            !(empty($data['first_name'])) ?: $data['first_name_error'] = 'هذا الحقل مطلوب';
+            // validate second_name
+            !(empty($data['second_name'])) ?: $data['second_name_error'] = 'هذا الحقل مطلوب';
+            // validate last_name
+            !(empty($data['last_name'])) ?: $data['last_name_error'] = 'هذا الحقل مطلوب';
+            // validate family_name
+            !(empty($data['family_name'])) ?: $data['family_name_error'] = 'هذا الحقل مطلوب';
             // validate gender
             !(empty($data['gender'])) ?: $data['gender_error'] = 'هذا الحقل مطلوب';
-            // validate email
-            !(empty($data['email'])) ?: $data['email_error'] = 'هذا الحقل مطلوب';
-            // validate phone
-            !(empty($data['phone'])) ?: $data['phone_error'] = 'هذا الحقل مطلوب';
+            // validate birthdate
+            !(empty($data['birthdate'])) ?: $data['birthdate_error'] = 'هذا الحقل مطلوب';
             // validate nationality
             !(empty($data['nationality'])) ?: $data['nationality_error'] = 'هذا الحقل مطلوب';
-            // validate full_name
-            !(empty($data['full_name'])) ?: $data['full_name_error'] = 'هذا الحقل مطلوب';
-            // validate status
-            if (isset($_POST['status'])) {
-                $data['status'] = trim($_POST['status']);
-            }
-            if ($data['status'] == '') {
-                $data['status_error'] = 'من فضلك اختار حالة النشر';
-            }
             // validate image
-            if ($_FILES['image']['error'] != 4) {
-                $image = uploadImage('image', ADMINROOT . '/../media/files/members/', 5000000, false);
+            if ($_FILES['image']['error'] == 0) {
+                $image = uploadImage('image', APPROOT . '/media/files/subscription/', 5000000, false);
                 if (empty($image['error'])) {
                     $data['image'] = $image['filename'];
                 } else {
@@ -257,11 +161,17 @@ class Members extends ControllerAdmin
                         $data['image_error'] = implode(',', $image['error']);
                     }
                 }
-            }
+            } 
             //make sure there is no errors
             if (
-                empty($data['status_error']) && empty($data['full_name_error'])
-                && empty($data['gender_error']) && empty($data['email_error']) && empty($data['phone_error']) && empty($data['image_error'])
+                empty($data['first_name_error'])
+                && empty($data['second_name_error'])
+                && empty($data['last_name_error'])
+                && empty($data['family_name_error'])
+                && empty($data['image_error'])
+                && empty($data['gender_error'])
+                && empty($data['birthdate_error'])
+                && empty($data['captcha_error'])
             ) {
                 //validated
                 if ($this->memberModel->updateMember($data)) {
@@ -283,22 +193,24 @@ class Members extends ControllerAdmin
             $data = [
                 'page_title' => 'المسجلون',
                 'member_id' => $id,
-                'full_name' => $member->full_name,
-                'identity' => $member->identity,
-                'image' => $member->image,
-                'phone' => $member->phone,
+                'first_name' => $member->first_name,
+                'last_name' => $member->last_name,
+                'second_name' => $member->second_name,
+                'family_name' => $member->family_name,
                 'nationality' => $member->nationality,
                 'gender' => $member->gender,
-                'email' => $member->email,
+                'birthdate' => date('Y-m-d',$member->birthdate),
+                'image' => $member->image,
                 'status' => $member->status,
                 'status_error' => '',
-                'email_error' => '',
-                'identity_error' => '',
                 'gender_error' => '',
                 'nationality_error' => '',
-                'phone_error' => '',
-
-                'full_name_error' => '',
+                'birthdate_error' => '',
+                'first_name_error' => '',
+                'last_name_error' => '',
+                'second_name_error' => '',
+                'family_name_error' => '',
+                'captcha_error' => '',
                 'image_error' => '',
             ];
             $this->view('members/edit', $data);

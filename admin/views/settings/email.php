@@ -44,13 +44,6 @@ require ADMINROOT . '/views/inc/header.php';
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="settingTitle">بريد استقبال تنبيهات التبرعات  : </label>
-                    <div class="has-feedback">
-                        <input type="text" id="settingTitle" class="form-control" name="value[donation_email]" placeholder="بريد استقبال تنبيهات التبرعات" value="<?php echo $data['value']->donation_email; ?>">
-                    </div>
-                </div>
-                
-                <div class="form-group">
                     <label class="control-label" for="host">سيرفر الارسال عن طريق SMTP   : </label>
                     <div class="has-feedback">
                         <input type="text" id="host" class="form-control" name="value[host]" placeholder="سيرفر الارسال عن طريق SMTP" value="<?php echo $data['value']->host; ?>">

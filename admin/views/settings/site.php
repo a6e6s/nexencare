@@ -50,9 +50,9 @@ require ADMINROOT . '/views/inc/header.php';
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="settingTitle">عن الجمعية : </label>
+                    <label class="control-label" for="settingTitle">عن الموقع : </label>
                     <div class="has-feedback">
-                        <textarea type="text" id="settingTitle" class="form-control" name="value[about]" placeholder="عن الجمعية" ><?php echo $data['value']->about; ?></textarea>
+                        <textarea type="text" id="settingTitle" class="form-control" name="value[about]" placeholder="عن الموقع" ><?php echo $data['value']->about; ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -60,28 +60,6 @@ require ADMINROOT . '/views/inc/header.php';
                     <div class="has-feedback">
                         <input type="text" id="settingTitle" class="form-control" name="value[welcomeText]" placeholder="رسالة الترحيب" value="<?php echo $data['value']->welcomeText; ?>">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="imageUpload">اللوجو : </label>
-                    <div class="glr-group ">
-                        <a data-toggle="modal"  href="javascript:;" data-target="#myModal" class="glr-btn col-xs-2" type="button">اختيار</a>
-                        <input  id="galery" readonly name="value[logo]" class="glr-control  col-xs-10" type="text" value="<?php echo $data['value']->logo; ?>" >
-                    </div>
-                    <!-- /.modal -->
-                    <div class="modal fade" id="myModal" style=" margin-left: 0px;">
-                        <div class="modal-dialog" style="width: 80%;">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title">اختيار الصور</h4>
-                                </div>
-                                <div class="modal-body" >
-                                <iframe width="100%" height="500" src="<?php echo ADMINURL; ?>/helpers/filemanager/dialog.php?type=2&field_id=galery&relative_url=1" frameborder="0" style="overflow: scroll; overflow-x: hidden; overflow-y: scroll; "></iframe>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
                 </div>
                 <div class="form-group col-md-12">
                     <label class="control-label">كود الهيدر  : </label>
@@ -93,94 +71,6 @@ require ADMINROOT . '/views/inc/header.php';
                     <label class="control-label">كود الفوتر  : </label>
                     <div class="row">
                         <textarea name="value[footer_code]" class="form-control"><?php echo ($data['value']->footer_code); ?></textarea>
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">يجب تأكيد الجوال اثناء الشراء من خلال السلة  :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->mobile_validation == 1) ? 'checked' : ''; ?> value="1" name="value[mobile_validation]"> نعم 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->mobile_validation == '0') ? 'checked' : ''; ?> value="0" name="value[mobile_validation]"> لا
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة الاسلايدر :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_banner == 1) ? 'checked' : ''; ?> value="1" name="value[show_banner]"> اظهار الاسلايدر 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_banner == '0') ? 'checked' : ''; ?> value="0" name="value[show_banner]"> اخفاء الاسلايدر
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة التبرع السريع :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->showQuickDonation == 1) ? 'checked' : ''; ?> value="1" name="value[showQuickDonation]"> اظهار التبرع السريع 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->showQuickDonation == '0') ? 'checked' : ''; ?> value="0" name="value[showQuickDonation]"> اخفاء التبرع السريع
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة الوسوم :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->enableTages == 1) ? 'checked' : ''; ?> value="1" name="value[enableTages]"> اظهار الوسوم 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->enableTages == '0') ? 'checked' : ''; ?> value="0" name="value[enableTages]"> اخفاء الوسوم
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة المشروعات :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_projects == 1) ? 'checked' : ''; ?> value="1" name="value[show_projects]"> اظهار المشروعات 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_projects == '0') ? 'checked' : ''; ?> value="0" name="value[show_projects]"> اخفاء المشروعات
-                        </label>
-                    </div>
-                    <label class="control-label" for="project_text">عنوان المشروعات : </label>
-                    <div class="has-feedback">
-                        <input type="text" id="project_text" class="form-control" name="value[project_text]" placeholder="عنوان الموقع" value="<?php echo $data['value']->project_text; ?>">
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة الاقسام :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_categories == 1) ? 'checked' : ''; ?> value="1" name="value[show_categories]"> اظهار الاقسام 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_categories == '0') ? 'checked' : ''; ?> value="0" name="value[show_categories]"> اخفاء الاقسام
-                        </label>
-                    </div>
-                    <label class="control-label" for="category_text">عنوان الاقسام : </label>
-                    <div class="has-feedback">
-                        <input type="text" id="category_text" class="form-control" name="value[category_text]" placeholder="عنوان الاقسام" value="<?php echo $data['value']->category_text; ?>">
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة المركز الاعلامي :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_media == 1) ? 'checked' : ''; ?> value="1" name="value[show_media]"> اظهار المركز الاعلامي 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_media == '0') ? 'checked' : ''; ?> value="0" name="value[show_media]"> اخفاء المركز الاعلامي
-                        </label>
-                    </div>
-                    <label class="control-label" for="category_text">عنوان المركز الاعلامي : </label>
-                    <div class="has-feedback">
-                        <input type="text" id="category_text" class="form-control" name="value[media_text]" placeholder="عنوان المركز الاعلامي" value="<?php echo $data['value']->media_text; ?>">
                     </div>
                 </div>
                 <div class="form-group col-xs-12 ">
@@ -208,17 +98,6 @@ require ADMINROOT . '/views/inc/header.php';
                     <label class="control-label" for="category_text">رابط المزيد : </label>
                     <div class="has-feedback">
                         <input type="text" id="category_text" class="form-control" name="value[videoMore]" placeholder="رابط المزيد" value="<?php echo $data['value']->videoMore; ?>">
-                    </div>
-                </div>
-                <div class="form-group col-xs-12 ">
-                    <label class="control-label">حالة القسم السفلي :</label>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_bottom == 1) ? 'checked' : ''; ?> value="1" name="value[show_bottom]"> اظهار القسم السفلي 
-                        </label>
-                        <label>
-                            <input type="radio" class="flat" <?php echo ($data['value']->show_bottom == '0') ? 'checked' : ''; ?> value="0" name="value[show_bottom]"> اخفاء القسم السفلي
-                        </label>
                     </div>
                 </div>
                 <div class="form-group col-xs-12 ">
