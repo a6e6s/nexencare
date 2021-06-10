@@ -47,7 +47,7 @@
                         <div class="has-feedback input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-primary" onclick="$(this).parent().find('input[type=file]').click();">اختار الملف</span>
-                                <input name="image" value="<?php echo ($data['image']); ?>" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());" style="display: none;" type="file">
+                                <input accept="image/*" capture name="image" value="<?php echo ($data['image']); ?>" onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());" style="display: none;" type="file">
                             </span>
                             <span class="form-control"><small><?php echo empty($data['image']) ? ' قم بأختيار صورة مناسبةاو ملف PDF' : $data['image']; ?></small></span>
                         </div>
